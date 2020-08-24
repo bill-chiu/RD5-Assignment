@@ -40,7 +40,6 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != "" && $_POST["txtUserAcc
     update bankuser set 
     username='$username',
     userphone='$userphone',
-
     account='$account',
     password='$password'
     where bankuser .userId=$id

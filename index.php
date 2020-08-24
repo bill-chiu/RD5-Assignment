@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+echo $_SESSION['moneynow'];
 $userName = "Guest";
 if (isset($_SESSION["user"])) {
   $userName = $_SESSION["user"];
