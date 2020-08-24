@@ -1,0 +1,23 @@
+create database mybank;
+use mybank;
+
+
+CREATE TABLE bankuser (
+  userId int AUTO_INCREMENT not null primary key,
+  username varchar(12) NOT NULL DEFAULT '',
+  userphone int NOT NULL ,
+  identityID varchar(10) NOT NULL DEFAULT '',
+  account varchar(12) NOT NULL DEFAULT '',
+  password varchar(12) NOT NULL DEFAULT '',
+  money int NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+INSERT INTO bankuser (username, userphone,identityID,account, password,money) VALUES
+('陳會安', 0984513254,'A123456789', 'hueyan', '1234',1234654),
+('江小魚', 0984444452,'B227654321',  'smallfish', '1234',1000),
+('周傑倫', 0912345678,'W121478963', 'jay', '1234',1000000),
+('蔡依玲', 0998512365,'H123445698',  'jolin', '1234',99999999),
+('張會妹', 0945215635,'Q125478963',  'chiang', '1234',23000),
+('張無忌', 0984513021,'P223654121', 'chiang1234', '1234',87000);
+
