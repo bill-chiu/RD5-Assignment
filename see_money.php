@@ -9,7 +9,6 @@ $sql = <<<multi
 select * from savelist where userId =$id
 multi;
 $result = mysqli_query($link, $sql);
-$row = mysqli_fetch_assoc($result);
 
 ?>
 
