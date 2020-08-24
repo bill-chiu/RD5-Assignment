@@ -2,7 +2,6 @@
 
 session_start();
 require("connDB.php");
-echo $_SESSION['moneynow'];
 $id = $_SESSION['id'];
 echo $id;
 $sql = <<<multi

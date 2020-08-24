@@ -40,7 +40,6 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 }
 
 
-echo $_SESSION['moneynow'];
 
 
 if (isset($_POST["btnHome"])) {
@@ -82,9 +81,14 @@ if (isset($_POST["btnHome"])) {
             <tr>
                 <td colspan="2" align="center" bgcolor="#CCCCCC">
                     <font color="#FFFFFF">網銀系統 - 存款</font>
+                  
+                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
+
+           
                 </td>
             </tr>
             <tr>
+    
             <td width="100" align="left" valign="baseline">輸入欲存款的金額</td>
             <td width="100" align="left" valign="baseline">備註</td>
             </tr>

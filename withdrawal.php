@@ -9,14 +9,14 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
     $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
     $moneynow = $_SESSION['moneynow'];
-    $remarks=$_POST["txtRemarks"];
+    $remarks = $_POST["txtRemarks"];
 
-    if ($afteraddmoney > 0) {
+    if ($afteraddmoney >= 0) {
 
         $sql = <<<multi
     insert into savelist 
     (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-    ($moneynow,$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
+    ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
   multi;
         $result = mysqli_query($link, $sql);
 
@@ -33,6 +33,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
         echo "<center><font color='red'>";
         echo "餘額不足!<br/>";
         echo "</font>";
+      
     }
 } else {
 
@@ -42,8 +43,6 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
 }
-global $moneynow;
-echo $_SESSION['moneynow'];
 
 
 if (isset($_POST["btnHome"])) {
@@ -85,10 +84,18 @@ if (isset($_POST["btnHome"])) {
             <tr>
                 <td colspan="2" align="center" bgcolor="#CCCCCC">
                     <font color="#FFFFFF">網銀系統 - 提款</font>
+                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
                 </td>
             </tr>
+
             <tr>
-                <td width="600">輸入欲提款的金額</td>
+                <td width="100" align="left" valign="baseline">輸入欲存款的金額</td>
+                <td width="100" align="left" valign="baseline">備註</td>
+            </tr>
+
+            <tr>
+
+
                 <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
                 <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
             </tr>

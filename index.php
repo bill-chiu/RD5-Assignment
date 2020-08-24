@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-echo $_SESSION['moneynow'];
 $userName = "Guest";
 if (isset($_SESSION["user"])) {
   $userName = $_SESSION["user"];
@@ -53,7 +52,12 @@ if (isset($_SESSION["user"])) {
         </td>
       </tr>
       <tr>
-        <td align="center" bgcolor="#CCCCCC">您好 <?= $userName ?> &nbsp;</td>
+        <td align="center" bgcolor="#CCCCCC">您好 <?= $userName ?> &nbsp;
+        <?php if($_SESSION["id"]!="-1"){?>
+                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
+
+                    <?php }?></td>
+        
       </tr>
     </table>
   </form>

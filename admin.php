@@ -2,9 +2,9 @@
 
 session_start();
 require("connDB.php");
-echo $_SESSION['moneynow'];
+
 $id = $_SESSION['id'];
-echo $id;
+
 $sql = <<<multi
 select * from bankuser where userId =$id
 multi;
@@ -49,14 +49,16 @@ $row = mysqli_fetch_assoc($result);
 
 
   <?php } else { ?>
-    <a>您好<?= $_SESSION["user"] ?> </a>
+    <a>您好<?= $_SESSION["user"] ?> </a><br>
+    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
     <tr>
 
 
       <td> <a href="save.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">存款</a>
         <a href="withdrawal.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">提款</a>
-        <a href="edit.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">修改帳戶資料</a>
         <a href="see_money.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">查詢交易紀錄</a>
+        <a href="edit.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">修改帳戶資料</a>
+     
       </td>
     </tr>
   <?php } ?>

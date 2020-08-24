@@ -2,9 +2,7 @@
 
 session_start();
 require("connDB.php");
-echo $_SESSION['moneynow'];
 $id = $_SESSION['id'];
-echo $id;
 $sql = <<<multi
 select * from bankuser where userId =$id
 multi;
@@ -29,7 +27,7 @@ $row = mysqli_fetch_assoc($result);
 
 <body>
 
-  <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+  <table width="450" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
     <tr>
 
       <td align="left" bgcolor="#CCCCCC">

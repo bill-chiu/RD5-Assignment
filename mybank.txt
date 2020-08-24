@@ -34,7 +34,7 @@ CREATE TABLE savelist (
 
 insert into savelist (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
 (0,1234654,1234654,1,current_timestamp(),''),
-(0,1000,1000,2,current_timestamp(),)'',
+(0,1000,1000,2,current_timestamp(),''),
 (0,1000000,1000000,3,current_timestamp()'',),
 (0,99999999,99999999,4,current_timestamp(),''),
 (0,23000,23000,5,current_timestamp(),''),
