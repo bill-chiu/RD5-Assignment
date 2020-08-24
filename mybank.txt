@@ -9,8 +9,8 @@ CREATE TABLE bankuser (
   identityID varchar(10) NOT NULL DEFAULT '',
   account varchar(12) NOT NULL DEFAULT '',
   password varchar(12) NOT NULL DEFAULT '',
-  money int NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  money int NOT NULL DEFAULT 100
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 INSERT INTO bankuser (username, userphone,identityID,account, password,money) VALUES
@@ -21,3 +21,21 @@ INSERT INTO bankuser (username, userphone,identityID,account, password,money) VA
 ('張會妹', 0945215635,'Q125478963',  'chiang', '1234',23000),
 ('張無忌', 0984513021,'P223654121', 'chiang1234', '1234',87000);
 
+
+CREATE TABLE savelist (
+  savelistId int AUTO_INCREMENT not null primary key,
+  originalmoney int NOT NULL,
+  editmoney int,
+  nowmoney int NOT NULL,
+  userId int NOT NULL,
+  data varchar(20) NOT NULL,
+  remarks varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into savelist (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
+(0,1234654,1234654,1,current_timestamp(),''),
+(0,1000,1000,2,current_timestamp(),)'',
+(0,1000000,1000000,3,current_timestamp()'',),
+(0,99999999,99999999,4,current_timestamp(),''),
+(0,23000,23000,5,current_timestamp(),''),
+(0,87000,87000,6,current_timestamp(),'')

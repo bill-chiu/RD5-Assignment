@@ -8,17 +8,27 @@ $id = $_SESSION['id'];
 if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
     $afteraddmoney = $_SESSION['moneynow'] + $addmoney;
-
+    $moneynow = $_SESSION['moneynow'];
+    $remarks = $_POST["txtRemarks"];
 
     $sql = <<<multi
-      update bankuser set 
-      money='$afteraddmoney'
-      where bankuser .userId=$id
+    insert into savelist 
+    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
+    ($moneynow,$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
+
+
   multi;
     $result = mysqli_query($link, $sql);
-    $_SESSION['moneynow']=$afteraddmoney;
 
-    header("location:index.php");
+    //     $sql = <<<multi
+    //       update bankuser set 
+    //       money='$afteraddmoney'    
+    //       where bankuser .userId=$id
+    //   multi;
+    $_SESSION['moneynow'] = $afteraddmoney;
+    //     $result = mysqli_query($link, $sql);
+
+    header("Location: if_see_money.php");
     exit();
 } else {
 
@@ -75,8 +85,13 @@ if (isset($_POST["btnHome"])) {
                 </td>
             </tr>
             <tr>
-                <td width="100" align="center" valign="baseline">輸入欲存款的金額</td>
+            <td width="100" align="left" valign="baseline">輸入欲存款的金額</td>
+            <td width="100" align="left" valign="baseline">備註</td>
+            </tr>
+            <tr>
+               
                 <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
+                <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
             </tr>
 
 
@@ -101,7 +116,7 @@ if (isset($_POST["btnHome"])) {
                 </td> -->
             </tr>
             <tr>
-                <td colspan="2" align="center" bgcolor="#CCCCCC">
+                <td colspan="2" align="left" bgcolor="#CCCCCC">
                     <input type="submit" name="btnOK" id="btnOK" value="新增" />
                     <input type="reset" name="btnReset" id="btnReset" value="重設" />
                     <input type="submit" name="btnHome" id="btnHome" value="回首頁" />

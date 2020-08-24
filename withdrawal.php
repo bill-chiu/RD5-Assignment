@@ -5,35 +5,44 @@ require("connDB.php");
 
 $id = $_SESSION['id'];
 
-if (isset($_POST["btnOK"])&&$_POST["txtMoney"]!="") {
+if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
-    $afteraddmoney=$_SESSION['moneynow']-$addmoney;
-if($afteraddmoney>0){
-    $sql = <<<multi
-      update bankuser set 
-      money='$afteraddmoney'
-      where bankuser .userId=$id
+    $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
+    $moneynow = $_SESSION['moneynow'];
+    $remarks=$_POST["txtRemarks"];
+
+    if ($afteraddmoney > 0) {
+
+        $sql = <<<multi
+    insert into savelist 
+    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
+    ($moneynow,$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
   multi;
-    $result = mysqli_query($link, $sql);
-    $_SESSION['moneynow']=$afteraddmoney;
-  
-    header("location:index.php");
-    exit();
-}
-else{
-    echo "<center><font color='red'>";
-    echo "餘額不足!<br/>";
-    echo "</font>";
-}
-  } else {
-  
+        $result = mysqli_query($link, $sql);
+
+        //         $sql = <<<multi
+        //       update bankuser set 
+        //       money='$afteraddmoney'    
+        //       where bankuser .userId=$id
+        //   multi;
+        $_SESSION['moneynow'] = $afteraddmoney;
+        //         $result = mysqli_query($link, $sql);
+        header("Location: if_see_money.php");
+        exit();
+    } else {
+        echo "<center><font color='red'>";
+        echo "餘額不足!<br/>";
+        echo "</font>";
+    }
+} else {
+
     $sql = <<<multi
       select * from bankuser where userId =$id
   multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
-  }
-  global $moneynow;
+}
+global $moneynow;
 echo $_SESSION['moneynow'];
 
 
@@ -41,7 +50,7 @@ if (isset($_POST["btnHome"])) {
 
     header("Location: index.php");
     exit();
-  }
+}
 
 
 ?>
@@ -71,7 +80,7 @@ if (isset($_POST["btnHome"])) {
 
 <body>
     <form id="form1" name="form1" method="post">
-        <table width="450"  border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+        <table width="450" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
             <tr>
                 <td colspan="2" align="center" bgcolor="#CCCCCC">
@@ -79,8 +88,9 @@ if (isset($_POST["btnHome"])) {
                 </td>
             </tr>
             <tr>
-                <td width="600"  >輸入欲提款的金額</td>
+                <td width="600">輸入欲提款的金額</td>
                 <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
+                <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
             </tr>
 
 

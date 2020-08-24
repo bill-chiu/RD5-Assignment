@@ -29,7 +29,7 @@ $row = mysqli_fetch_assoc($result);
 
 <body>
 
-  <table width="600" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+  <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
     <tr>
 
       <td align="left" bgcolor="#CCCCCC">
@@ -49,20 +49,19 @@ $row = mysqli_fetch_assoc($result);
 
 
   <?php } else { ?>
-    <a>您好<?= $_SESSION["user"] ?> </a>
+    <a><?= $_SESSION["user"] ?> </a>
     <tr>
 
-
-      <td> <a href="save.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">存款</a>
-        <a href="withdrawal.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">提款</a>
-        <a href="edit.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">修改帳戶資料</a>
-        <a href="see_money.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">查詢交易紀錄</a>
+      <td> 是否顯示結束交易
+          <a href="admin.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">繼續交易</a>
+        <a href="sign_out.php?id=<?= $row["userId"] ?>" class="btn btn-danger btn-sm">登出</a>
+      
       </td>
     </tr>
   <?php } ?>
 
   <tr>
-    <td align="left" bgcolor="#CCCCCC"><a href="index.php " class="btn btn-primary  btn-sm">回首頁</a>
+    <td align="left" bgcolor="#CCCCCC"><a></a>
     </td>
     <td bgcolor="#CCCCCC"></td>
     <td bgcolor="#CCCCCC"></td>
