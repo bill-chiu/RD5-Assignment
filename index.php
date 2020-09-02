@@ -44,11 +44,7 @@ if (isset($_SESSION["user"])) {
       
   
         <a href="edit.php?id=<?=$_SESSION['id']?>" class="btn btn-success  btn-sm">修改帳號</a></p>
-      
-
-
-
-        
+    
         </td>
       </tr>
       <tr>

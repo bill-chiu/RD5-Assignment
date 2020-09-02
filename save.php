@@ -84,7 +84,6 @@ if (isset($_POST["btnHome"])) {
                   
                     <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
 
-           
                 </td>
             </tr>
             <tr>
@@ -102,22 +101,6 @@ if (isset($_POST["btnHome"])) {
 
             <tr>
 
-
-                <!-- <td > <a class="btn btn-success btn-sm">１</a>
-                    <a class="btn btn-success btn-sm">２</a>
-                    <a class="btn btn-success btn-sm">３</a>
-                    <br>
-         
-                    <a class="btn btn-success btn-sm">４</a>
-                    <a class="btn btn-success btn-sm">５</a>
-                    <a class="btn btn-success btn-sm">６</a>
-                  <br>
-          
-                    <a class="btn btn-success btn-sm">７</a>
-                    <a class="btn btn-success btn-sm">８</a>
-                    <a class="btn btn-success btn-sm">９</a>
-
-                </td> -->
             </tr>
             <tr>
                 <td colspan="2" align="left" bgcolor="#CCCCCC">

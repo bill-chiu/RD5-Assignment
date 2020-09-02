@@ -10,7 +10,6 @@ function randowverif()
   $_SESSION['verification2 '] = rand(0, 9);
   $_SESSION['verification3 '] = rand(0, 9);
   $_SESSION['verification4 '] = rand(0, 9);
-
 }
 
 
@@ -47,7 +46,7 @@ if ($account != "" && $password != "") {
   // 執行SQL查詢
   $result = mysqli_query($link, $sql);
   $total_records = mysqli_num_rows($result);
-  
+
   // 是否有查詢到使用者記錄以及驗證碼是否正確
   if ($total_records > 0 && $_SESSION['verification '] == $verif) {
 
@@ -56,12 +55,30 @@ if ($account != "" && $password != "") {
     // 成功登入, 指定Session變數
     $_SESSION['user'] =  $row["username"];
     $_SESSION['id'] =  $row["userId"];
-    $_SESSION['moneynow']=$row["money"];
+    $id = $row["userId"];
     $_SESSION["login_session"] = true;
-
+    //搜尋該帳戶最後一筆交易資料
+    $sql = "SELECT * FROM `savelist` where userId=$id ORDER BY `savelist`.`data` DESC";
+    $moneyresult = mysqli_query($link, $sql);
+    //計算交易紀錄次數
+    $money_records = mysqli_num_rows($moneyresult);
+    //如果曾經有交易紀錄
+    if ($money_records > 0) {
+      //紀錄現在的數字並儲存到SESSION
+      $row = mysqli_fetch_assoc($moneyresult);
+      $_SESSION['moneynow'] = $row["nowmoney"];
+      //如果沒有任何交易紀錄，則設定為0
+    } else {
+      $sql = <<<multi
+      insert into savelist 
+      (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
+      (0,0,0,$id,current_timestamp(),'新帳號')
+    multi;
+      $result = mysqli_query($link, $sql);
+    }
     header("Location: index.php");
     // 登入失敗
-  } else {  
+  } else {
     randowverif();
     //如果沒有這個帳密
     if (!$total_records > 0) {
@@ -78,7 +95,7 @@ if ($account != "" && $password != "") {
     $_SESSION["login_session"] = false;
   }
   // 關閉資料庫連接  
-  mysqli_close($link);  
+  mysqli_close($link);
   //如果有空白
 } else {
   randowverif();
@@ -128,7 +145,7 @@ if ($account != "" && $password != "") {
             <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" /></p>
         </td>
 
-        <td><input type="text" name="Verif"  />
+        <td><input type="text" name="Verif" />
         </td>
 
       </tr>

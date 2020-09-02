@@ -10,30 +10,49 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
     $moneynow = $_SESSION['moneynow'];
     $remarks = $_POST["txtRemarks"];
+    $account = $_POST["txtAccount"];
 
     if ($afteraddmoney >= 0) {
 
-        $sql = <<<multi
+        $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
+
+        // 執行SQL查詢
+        $result = mysqli_query($link, $sql);
+        $total_records = mysqli_num_rows($result);
+
+        // 是否有查詢到使用者記錄以及驗證碼是否正確
+        if ($total_records > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $otherid = $row["userId"];
+            $sql = "SELECT * FROM `savelist` where userId=$otherid ORDER BY `savelist`.`data` DESC";
+            echo $sql;
+            $result = mysqli_query($link, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $othermoneynow = $row["nowmoney"];
+            $otherafteraddmoney = $othermoneynow + $addmoney;
+
+            $sql = <<<multi
+    insert into savelist 
+    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
+    ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'$remarks')
+  multi;
+            $result = mysqli_query($link, $sql);
+            $sql = <<<multi
     insert into savelist 
     (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
     ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
   multi;
-        $result = mysqli_query($link, $sql);
+            $result = mysqli_query($link, $sql);
 
-        //         $sql = <<<multi
-        //       update bankuser set 
-        //       money='$afteraddmoney'    
-        //       where bankuser .userId=$id
-        //   multi;
-        $_SESSION['moneynow'] = $afteraddmoney;
-        //         $result = mysqli_query($link, $sql);
-        header("Location: if_see_money.php");
-        exit();
+            $_SESSION['moneynow'] = $afteraddmoney;
+
+            // header("Location: if_see_money.php");
+            // exit();
+        }
     } else {
         echo "<center><font color='red'>";
         echo "餘額不足!<br/>";
         echo "</font>";
-      
     }
 } else {
 
@@ -89,7 +108,8 @@ if (isset($_POST["btnHome"])) {
             </tr>
 
             <tr>
-                <td width="100" align="left" valign="baseline">輸入欲提款的金額</td>
+                <td width="100" align="left" valign="baseline">輸入欲轉帳的金額</td>
+                <td width="100" align="left" valign="baseline">輸入欲轉帳的帳號</td>
                 <td width="100" align="left" valign="baseline">備註</td>
             </tr>
 
@@ -97,6 +117,7 @@ if (isset($_POST["btnHome"])) {
 
 
                 <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
+                <td valign="baseline"><input type="text" name="txtAccount" id="txtAccount" /></td>
                 <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
             </tr>
 

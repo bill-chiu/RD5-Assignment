@@ -9,9 +9,6 @@ multi;
 $result = mysqli_query($link, $sql);
 
 ?>
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -48,7 +45,6 @@ $result = mysqli_query($link, $sql);
                 </tr>
         <tr>
 
-
             <?php while ($row = mysqli_fetch_assoc($result)) { ?>
 
                 <td><?= $row["originalmoney"] ?></td>
@@ -59,10 +55,6 @@ $result = mysqli_query($link, $sql);
 
         </tr>
     <?php  } ?>
-
-
-
-
     <tr>
         <td align="left" bgcolor="#CCCCCC"><a href="index.php " class="btn btn-primary  btn-sm">回首頁</a>
         </td>

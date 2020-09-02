@@ -8,15 +8,17 @@ if (isset($_POST["btnOK"])) {
     $identityID=$_POST["txtIdentityID"];
     $account = $_POST["txtUserAccount"];
     $password = $_POST["txtPassword"];
-    $money=0;
 
     $sql = <<<multi
-    insert into bankuser (username,userphone,identityID,account,password,money)
-    values ('$username','$userphone','$identityID','$account','$password','$money')
+    insert into bankuser (username,userphone,identityID,account,password)
+    values ('$username','$userphone','$identityID','$account','$password')
     multi;
     echo $sql;
     require("connDB.php");
     mysqli_query($link, $sql);
+
+      
+
     // $_SESSION["toast"]="Row inserted";
     header("location:index.php");
 }else{
