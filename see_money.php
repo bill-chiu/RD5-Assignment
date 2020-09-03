@@ -50,13 +50,13 @@ $row = mysqli_fetch_assoc($result);
 
 <body>
     <form id="form1" name="form1" method="post">
-        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
             <tr bgcolor="#005757">
                 <td>
                     <div id="title">
                         <div></div>
-                        <font color="#FFFFFF">清單明細</font>
+                        <font color="#FFFFFF" align="center" >清單明細</font>
                         <div>
                             <a href="detail.php?id=<?= $row["userId"] ?>" id="back" class="btn btn-info btn-sm">返回</a>
                         </div>
@@ -64,7 +64,7 @@ $row = mysqli_fetch_assoc($result);
                 </td>
 
             </tr>
-            <tr id="greenline">
+            <tr id="greenline" >
                 <td>
                     <div id="ttt">
                         <div>
@@ -73,6 +73,7 @@ $row = mysqli_fetch_assoc($result);
 
                         <div>
                         </div>
+                        <div align="right" >
                         <?= $row["editmoney"]  ?>
                     </div>
                     </div>
@@ -86,7 +87,7 @@ $row = mysqli_fetch_assoc($result);
                         </div>
 
                         <div>
-                        </div>
+                        </div> <div align="right" >
                         <?= substr($row["data"], 5, 5)  ?>
                     </div>
                     </div>
@@ -100,7 +101,7 @@ $row = mysqli_fetch_assoc($result);
                         </div>
 
                         <div>
-                        </div>
+                        </div> <div align="right" >
                         <?= substr($row["data"], 10, 8) ?>
                     </div>
                     </div>
@@ -115,7 +116,7 @@ $row = mysqli_fetch_assoc($result);
 
                         <div>
                         </div>
-                        <div id="d1">
+                        <div id="d1"  align="right">
                             <?php echo $row["nowmoney"] ;
                           
                             ?>
@@ -126,7 +127,7 @@ $row = mysqli_fetch_assoc($result);
             <tr id="greenline">
                 <td>
                     <div id="ttt">
-                        <div>
+                        <div >
                             <font color="#000000">交易備註</font>
                         </div>
 
@@ -145,7 +146,7 @@ $row = mysqli_fetch_assoc($result);
                         </div>
 
                         <div>
-                        </div>
+                        </div>                     <div id="d1 " align="right">
                         <?= $row["remarks"] ?>
                     </div>
                     </div>

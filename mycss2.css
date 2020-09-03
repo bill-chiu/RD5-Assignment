@@ -10,14 +10,20 @@ body {
 input[type="text"]{padding:5px 15px; border:2px #ccc solid;
     -webkit-border-radius: 5px;
     text-align:center;
-    width:400px;
+    width:150px;
     border-radius: 50px; }
 input[type="submit"]{padding:5px 15px; border:2px #009393 solid;
     cursor:pointer;
-    width:200px;
+    width:100px;
     -webkit-border-radius: 5px;
     border-radius: 50px; 
 }
+input[type="password"]{padding:5px 15px; border:2px #ccc solid;
+    -webkit-border-radius: 5px;
+    text-align:center;
+    width:150px;
+    border-radius: 50px; }
+
 #greenline{
     
     border-bottom:0.5px #009393 solid;

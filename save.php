@@ -71,7 +71,7 @@ if (isset($_POST["btnHome"])) {
 
 <body>
     <form id="form1" name="form1" method="post">
-        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <h6>  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
             <tr bgcolor="#005757">
                 <td>
@@ -84,7 +84,7 @@ if (isset($_POST["btnHome"])) {
                     </div>
                 </td>
 
-            </tr>
+            </tr>  
             <tr>
                 <td align="left" style="color:#009393">存款金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
                     <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />

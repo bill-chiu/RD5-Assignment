@@ -87,7 +87,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
 <body>
 <form id="form1" name="form1" method="post">
-        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+<h6>  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
             <tr bgcolor="#005757" >
                 <td>
