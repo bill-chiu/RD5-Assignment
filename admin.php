@@ -2,7 +2,9 @@
 
 session_start();
 require("connDB.php");
-
+if (($_SESSION['num'] > 5)) {
+  $_SESSION['num'] = 5;
+}
 $id = $_SESSION['id'];
 
 $sql = <<<multi
@@ -43,7 +45,7 @@ $row = mysqli_fetch_assoc($result);
     <tr>
       <td>
 
-        <a >This page for user only.</a>
+        <a>This page for user only.</a>
       </td>
     </tr>
 
@@ -57,9 +59,9 @@ $row = mysqli_fetch_assoc($result);
       <td> <a href="save.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">存款</a>
         <a href="withdrawal.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">提款</a>
         <a href="turn_money.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">轉帳</a>
-        <a href="see_money.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">查詢交易紀錄</a>
+        <a href="detail.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">查詢交易紀錄</a>
         <a href="edit.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">修改帳戶資料</a>
-     
+
       </td>
     </tr>
   <?php } ?>

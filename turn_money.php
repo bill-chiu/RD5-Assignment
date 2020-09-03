@@ -46,8 +46,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
             $_SESSION['moneynow'] = $afteraddmoney;
 
-            // header("Location: if_see_money.php");
-            // exit();
+            header("Location: if_see_money.php");
+            exit();
         }
     } else {
         echo "<center><font color='red'>";
@@ -64,12 +64,6 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 }
 
 
-if (isset($_POST["btnHome"])) {
-
-    header("Location: index.php");
-    exit();
-}
-
 
 ?>
 
@@ -85,68 +79,54 @@ if (isset($_POST["btnHome"])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="mycss.css">
     <style>
-        .box {
 
-            padding-left: 100px;
-            padding-right: 100px;
-
-
-        }
     </style>
 </head>
 
 <body>
-    <form id="form1" name="form1" method="post">
-        <table width="450" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+<form id="form1" name="form1" method="post">
+        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
+            <tr bgcolor="#005757" >
+                <td>
+                    <div id="title">
+                        <div></div>
+                        <font color="#FFFFFF">轉帳</font>
+                        <div>
+                       <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                       </div> 
+                       </div>
+                </td>
+
+            </tr>
             <tr>
-                <td colspan="2" align="center" bgcolor="#CCCCCC">
-                    <font color="#FFFFFF">網銀系統 - 提款</font>
-                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
+                <td align="left" style="color:#009393">轉出金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
+                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
+                    <hr>
+
+
                 </td>
             </tr>
-
-            <tr>
-                <td width="100" align="left" valign="baseline">輸入欲轉帳的金額</td>
-                <td width="100" align="left" valign="baseline">輸入欲轉帳的帳號</td>
-                <td width="100" align="left" valign="baseline">備註</td>
-            </tr>
-
-            <tr>
-
-
-                <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
-                <td valign="baseline"><input type="text" name="txtAccount" id="txtAccount" /></td>
-                <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
-            </tr>
-
-
-
-            <tr>
-
-
-                <!-- <td > <a class="btn btn-success btn-sm">１</a>
-                    <a class="btn btn-success btn-sm">２</a>
-                    <a class="btn btn-success btn-sm">３</a>
-                    <br>
-         
-                    <a class="btn btn-success btn-sm">４</a>
-                    <a class="btn btn-success btn-sm">５</a>
-                    <a class="btn btn-success btn-sm">６</a>
-                  <br>
-          
-                    <a class="btn btn-success btn-sm">７</a>
-                    <a class="btn btn-success btn-sm">８</a>
-                    <a class="btn btn-success btn-sm">９</a>
-
-                </td> -->
+            <tr align="center">
+                <td>給</td>
             </tr>
             <tr>
-                <td colspan="2" align="center" bgcolor="#CCCCCC">
-                    <input type="submit" name="btnOK" id="btnOK" value="新增" />
-                    <input type="reset" name="btnReset" id="btnReset" value="重設" />
-                    <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
+
+                <td align="left" style="color:#009393">轉入對象<br>
+                    <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" /></td>
+            </tr>
+            <tr>
+                <td align="left" style="color:#009393">轉帳說明(非必填)<br>
+                    <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在雙方交易明細" /></td>
+            </tr>
+
+            <tr bgcolor="#005757">
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnOK" id="btnOK" value="立刻轉帳" style="color:#009393" />
+
+
                 </td>
             </tr>
         </table>

@@ -63,50 +63,50 @@ if (isset($_POST["btnHome"])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="mycss.css">
     <style>
-        .box {
 
-            padding-left: 100px;
-            padding-right: 100px;
-
-
-        }
     </style>
 </head>
 
 <body>
     <form id="form1" name="form1" method="post">
-        <table width="600" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
+            <tr bgcolor="#005757">
+                <td>
+                    <div id="title">
+                        <div></div>
+                        <font color="#FFFFFF">存款</font>
+                        <div>
+                            <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
             <tr>
-                <td colspan="2" align="center" bgcolor="#CCCCCC">
-                    <font color="#FFFFFF">網銀系統 - 存款</font>
-                  
-                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
+                <td align="left" style="color:#009393">存款金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
+                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
+                    <hr>
+
 
                 </td>
             </tr>
-            <tr>
-    
-            <td width="100" align="left" valign="baseline">輸入欲存款的金額</td>
-            <td width="100" align="left" valign="baseline">備註</td>
-            </tr>
-            <tr>
-               
-                <td valign="baseline"><input type="text" name="txtMoney" id="txtMoney" /></td>
-                <td valign="baseline"><input type="text" name="txtRemarks" id="txtRemarks" /></td>
-            </tr>
-
-
-
-            <tr>
+            <tr align="center">
 
             </tr>
+
             <tr>
-                <td colspan="2" align="left" bgcolor="#CCCCCC">
-                    <input type="submit" name="btnOK" id="btnOK" value="新增" />
-                    <input type="reset" name="btnReset" id="btnReset" value="重設" />
-                    <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
+                <td align="left" style="color:#009393">存款說明(非必填)<br>
+                    <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在交易明細" /></td>
+            </tr>
+
+            <tr bgcolor="#005757">
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnOK" id="btnOK" value="立刻存款" style="color:#009393" />
+
+
                 </td>
             </tr>
         </table>

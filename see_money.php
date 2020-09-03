@@ -2,70 +2,162 @@
 
 session_start();
 require("connDB.php");
-$id = $_SESSION['id'];
+$see = true;
+$id = $_GET["id"];
 $sql = <<<multi
-select * from savelist where userId =$id
+select * from savelist where savelistId =$id
 multi;
 $result = mysqli_query($link, $sql);
+$row = mysqli_fetch_assoc($result);
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<script>
+    var isShow = true;
+
+
+    function change() {
+        if (!isShow) {
+            isShow = true;
+
+            document.getElementById('d1').innerText = '<?php echo $row["nowmoney"]?>';
+            document.getElementById('a1').innerHTML = '<img src=see.svg> ';
+        } else {                         
+            isShow = false;
+
+            document.getElementById('d1').innerText='***'
+            document.getElementById('a1').innerHTML = '<img src=nosee.svg> ';
+        }
+    }
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Lag - Member Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="mycss.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
+    <form id="form1" name="form1" method="post">
+        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-    <table width="600" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
-        <tr>
+            <tr bgcolor="#005757">
+                <td>
+                    <div id="title">
+                        <div></div>
+                        <font color="#FFFFFF">清單明細</font>
+                        <div>
+                            <a href="detail.php?id=<?= $row["userId"] ?>" id="back" class="btn btn-info btn-sm">返回</a>
+                        </div>
+                    </div>
+                </td>
 
-            <td align="left" bgcolor="#CCCCCC">
-                <font color="#FFFFFF">網銀系統 － 金流</font>
-            <td bgcolor="#CCCCCC"></td>
-            <td bgcolor="#CCCCCC"></td>
-            <td bgcolor="#CCCCCC"></td>
-            <td align="left" bgcolor="#CCCCCC" valign="baseline">
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">金額</font>
+                        </div>
 
+                        <div>
+                        </div>
+                        <?= $row["editmoney"]  ?>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">帳務日期</font>
+                        </div>
 
-                <a>您好<?= $_SESSION["user"] ?> </a>
+                        <div>
+                        </div>
+                        <?= substr($row["data"], 5, 5)  ?>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">交易時間</font>
+                        </div>
 
-                <tr>
-                <td>交易前餘額</td>
-                <td>交易金額</td>
-                <td>帳戶餘額</td>
-                <td>交易時間</td>
-                <td>備註</td>
-                </tr>
-        <tr>
+                        <div>
+                        </div>
+                        <?= substr($row["data"], 10, 8) ?>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">帳戶餘額</font> <a id="a1" href="javascript:;" onclick="change()"><img src=see.svg></a>
+                        </div>
 
-            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                        <div>
+                        </div>
+                        <div id="d1">
+                            <?php echo $row["nowmoney"] ;
+                          
+                            ?>
 
-                <td><?= $row["originalmoney"] ?></td>
-                <td><?= $row["editmoney"] ?></td>
-                <td><?= $row["nowmoney"] ?></td>
-                <td><?= $row["data"] ?></td>
-                <td><?= $row["remarks"] ?></td>
+                        </div>
+                </td>
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">交易備註</font>
+                        </div>
 
-        </tr>
-    <?php  } ?>
-    <tr>
-        <td align="left" bgcolor="#CCCCCC"><a href="index.php " class="btn btn-primary  btn-sm">回首頁</a>
-        </td>
-        <td bgcolor="#CCCCCC"></td>
-        <td bgcolor="#CCCCCC"></td>
-        <td bgcolor="#CCCCCC"></td>
-        <td bgcolor="#CCCCCC"></td>
-    </tr>
-    </table>
+                        <div>
+                        </div>
 
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="greenline">
+                <td>
+                    <div id="ttt">
+                        <div>
+                            <font color="#000000">轉帳說明</font>
+                        </div>
 
+                        <div>
+                        </div>
+                        <?= $row["remarks"] ?>
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr bgcolor="#005757">
+
+                <td> </td>
+            </tr>
+        </table>
+    </form>
 </body>
+
 
 </html>
