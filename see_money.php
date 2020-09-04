@@ -102,7 +102,7 @@ $row = mysqli_fetch_assoc($result);
 
                         <div>
                         </div> <div align="right" >
-                        <?= substr($row["data"], 10, 8) ?>
+                        <?= substr($row["data"], 10, 9) ?>
                     </div>
                     </div>
                 </td>

@@ -22,8 +22,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
 
         $_SESSION['moneynow'] = $afteraddmoney;
-
-        header("Location: if_see_money.php");
+        $_SESSION["end1"]=true;
+        $_SESSION["end2"]=true;
+        header("Location: flag.php");
         exit();
     } else {
         echo "<center><font color='red'>";

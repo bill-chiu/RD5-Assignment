@@ -15,8 +15,8 @@ if (isset($_POST["btnHome"])) {
   exit();
 }
 if (isset($_POST["btnDelete"])) {
-
-  header("Location: delete.php");
+  $_SESSION["delete"]=true;
+  header("Location: flag.php");
   exit();
 }
 
@@ -45,9 +45,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != "" && $_POST["txtUserAcc
     where bankuser .userId=$id
 multi;
   $result = mysqli_query($link, $sql);
-    $_SESSION['user'] = $username;
+  $_SESSION['user'] = $username;
 
-  header("location:index.php");
+  header("location:admin.php");
   exit();
 } else {
 
@@ -64,75 +64,71 @@ multi;
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Lag - Member Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="mycss2.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Lag - Member Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="mycss.css">
 </head>
 
 <body>
 
   <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
+    <form id="form1" name="form1" method="post">
+      <tr bgcolor="#005757">
+        <td>
+          <div id="title">
+            <div></div>
+            <font color="#FFFFFF" align="center">清單明細</font>
+            <div>
+              <a href="admin.php?id=<?= $row["userId"] ?>" id="back" class="btn btn-info btn-sm">返回</a>
+            </div>
+          </div>
+        </td>
 
-        <tr bgcolor="#005757" >
-            <td>
-            </td>
-            <td>
-                <font color="#FFFFFF">清單</font>
-            </td>
-            <td>
-                <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
-            </td>
-        </tr>
-        <tr>
-        <td width="100" align="center" valign="baseline">使用者名稱</td>
-        <td></td>
-        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" value="<?= $row["username"] ?>"></td>
       </tr>
-
       <tr>
-        <td width="100" align="center" valign="baseline">使用者電話</td>
-        <td></td>
-        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" value="<?= $row["userphone"] ?>" /></td>
+        <td>使用者名稱<br>
+
+          <input type="text" name="txtUserName" id="txtUserName" value="<?= $row["username"] ?>"></td>
       </tr>
 
       <tr>
-        <td width="100" align="center" valign="baseline">使用者帳號</td>
-        <td></td>
-        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>" /></td>
+        <td>使用者電話<br>       
+
+     <input type="text" name="txtUserPhone" id="txtUserPhone" value="<?= $row["userphone"] ?>" /></td>
+      </tr>
+
+      <tr>
+        <td>使用者帳號<br>
+
+       <input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>" /></td>
       </tr>
       <tr>
-        <td width="100" align="center" valign="baseline">使用者密碼</td>
-        <td></td>
-        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
+        <td>使用者密碼<br>
+
+       <input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
       </tr>
       <tr>
-        <td ><input type="submit" name="btnOK" id="btnOK" value="修改" /> </td>
-        <td > <input type="submit" name="btnHome" id="btnHome" value="回首頁" /> </td>
-        <td > <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
+        <td><input type="submit" name="btnOK" id="btnOK" value="修改" /> 
+
+        <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
         </td>
       </tr>
-        <tr bgcolor="#005757">
-            <td></td>
-            <form id="form1" name="form1" method="post">
-                <td>
+      <tr bgcolor="#005757">
+        <td></td>
 
-                </td>
-                <td></td>
-            </form>
-        </tr>
+    
+    </form>
+    </tr>
 
-        </div>
-    </table>
+    </div>
+  </table>
 
 
 </body>
 
 </html>
-
-
-

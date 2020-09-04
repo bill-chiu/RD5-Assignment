@@ -2,6 +2,11 @@
 
 session_start();
 require("connDB.php");
+
+$_SESSION["delete"] = false;
+$_SESSION["end1"] = false;
+$_SESSION["end2"] = false;
+
 if (($_SESSION['num'] > 5)) {
   $_SESSION['num'] = 5;
 }
@@ -43,7 +48,7 @@ $row = mysqli_fetch_assoc($result);
                         <div></div>
                         <font color="#FFFFFF">管理</font>
                         <div>
-                            <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                            
                         </div>
                     </div>
                 </td>

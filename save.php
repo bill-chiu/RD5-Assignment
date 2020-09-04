@@ -27,8 +27,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     //   multi;
     $_SESSION['moneynow'] = $afteraddmoney;
     //     $result = mysqli_query($link, $sql);
-
-    header("Location: if_see_money.php");
+    $_SESSION["end1"]=true;
+    $_SESSION["end2"]=true;
+    header("Location: flag.php");
     exit();
 } else {
 
@@ -77,7 +78,7 @@ if (isset($_POST["btnHome"])) {
                 <td>
                     <div id="title">
                         <div></div>
-                        <font color="#FFFFFF">存款</font>
+                        <div>  <font color="#FFFFFF">存款</font></div>
                         <div>
                             <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
                         </div>

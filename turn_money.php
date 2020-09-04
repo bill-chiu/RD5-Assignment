@@ -25,7 +25,6 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
             $row = mysqli_fetch_assoc($result);
             $otherid = $row["userId"];
             $sql = "SELECT * FROM `savelist` where userId=$otherid ORDER BY `savelist`.`data` DESC";
-            echo $sql;
             $result = mysqli_query($link, $sql);
             $row = mysqli_fetch_assoc($result);
             $othermoneynow = $row["nowmoney"];
@@ -45,8 +44,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
             $result = mysqli_query($link, $sql);
 
             $_SESSION['moneynow'] = $afteraddmoney;
-
-            header("Location: if_see_money.php");
+            $_SESSION["end1"]=true;
+            $_SESSION["end2"]=true;
+            header("Location: flag.php");
             exit();
         }
     } else {
@@ -86,50 +86,54 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 </head>
 
 <body>
-<form id="form1" name="form1" method="post">
-<h6>  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <form id="form1" name="form1" method="post">
+        <h6>
+            <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-            <tr bgcolor="#005757" >
-                <td>
-                    <div id="title">
-                        <div></div>
-                        <font color="#FFFFFF">轉帳</font>
-                        <div>
-                       <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
-                       </div> 
-                       </div>
-                </td>
+                <tr bgcolor="#005757">
+                    <td>
+                        <div id="title">
+                            <div></div>
+                            <font color="#FFFFFF">轉帳</font>
+                            <div>
+                                <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                            </div>
+                        </div>
+                    </td>
 
-            </tr>
-            <tr>
-                <td align="left" style="color:#009393">轉出金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
-                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
-                    <hr>
-
-
-                </td>
-            </tr>
-            <tr align="center">
-                <td>給</td>
-            </tr>
-            <tr>
-
-                <td align="left" style="color:#009393">轉入對象<br>
-                    <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" /></td>
-            </tr>
-            <tr>
-                <td align="left" style="color:#009393">轉帳說明(非必填)<br>
-                    <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在雙方交易明細" /></td>
-            </tr>
-
-            <tr bgcolor="#005757">
-                <td colspan="2" align="center">
-                    <input type="submit" name="btnOK" id="btnOK" value="立刻轉帳" style="color:#009393" />
+                </tr>
+                <tr>
+                    <td align="left" style="color:#009393">轉出金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
+                        <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
+                        <hr>
 
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>給</td>
+                </tr>
+                <tr>
+
+                    <td align="left" style="color:#009393">轉入對象<br>
+                        <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" />
+                        <hr>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td align="left" style="color:#009393">轉帳說明(非必填)<br>
+                        <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在雙方交易明細" /></td>
+                </tr>
+
+                <tr bgcolor="#005757">
+                    <td colspan="2" align="center">
+                        <input type="submit" name="btnOK" id="btnOK" value="立刻轉帳" style="color:#009393" />
+
+
+                    </td>
+                </tr>
+            </table>
     </form>
 </body>
 
