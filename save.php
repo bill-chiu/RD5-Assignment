@@ -13,8 +13,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
     $sql = <<<multi
     insert into savelist 
-    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-    ($moneynow,$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
+    (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
+    ($moneynow,$addmoney,$afteraddmoney,$id,current_timestamp(),"存款",'$remarks')
 
 
   multi;
@@ -80,7 +80,7 @@ if (isset($_POST["btnHome"])) {
                         <div></div>
                         <div>  <font color="#FFFFFF">存款</font></div>
                         <div>
-                            <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                            <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
                         </div>
                     </div>
                 </td>

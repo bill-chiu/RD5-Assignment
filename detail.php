@@ -8,8 +8,6 @@ if (empty($_SESSION['num'])) {
     $_SESSION['num'] = 5;
 }
 
-
-
 if (isset($_POST["btnOK"])) {
     $_SESSION['num'] = $_SESSION['num'] + 5;
     $num = $_SESSION['num'];
@@ -41,17 +39,17 @@ multi;
 
 <body>
 
-  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
 
-        <tr bgcolor="#005757" >
+        <tr bgcolor="#005757">
             <td>
             </td>
             <td>
                 <font color="#FFFFFF">清單</font>
             </td>
             <td>
-                <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
             </td>
         </tr>
         <tr id="greenline">
@@ -66,8 +64,17 @@ multi;
             <?php $maxlist = $row["savelistId"]; ?>
 
             <td><?= substr($row["data"], 5, 5) ?></td>
-            <td><?= $row["remarks"] ?></td>
-            <td><?= $row["editmoney"] ?> <a href="see_money.php?id= <?= $row["savelistId"]; ?>" id="back" class="btn btn-info btn-sm">></a></td>
+            <td align="left"><?= $row["species"] ?></td>
+            <td align="right"><?php if ($row["editmoney"] >= 0) { ?>
+                    <font color="green">
+                        <?php echo $row["editmoney"];  ?>
+                    </font>
+                <?php   } else {   ?>
+                    <font color="red">
+                        <?php echo $row["editmoney"]; ?>
+                    </font>
+                <?php } ?>
+                <a id="moneybtn" href="see_money.php?id= <?= $row["savelistId"]; ?>" id="back" class="btn btn-info btn-sm">></a></td>
 
         </tr>
 
@@ -75,20 +82,35 @@ multi;
             <tr id="greenline">
                 <?php $maxlist = $row["savelistId"]; ?>
                 <td><?= substr($row["data"], 5, 5) ?></td>
-                <td><?= $row["remarks"] ?></td>
-                <td><?= $row["editmoney"] ?> <a href="see_money.php?id= <?= $row["savelistId"] ?>" id="back" class="btn btn-info btn-sm">></a></td>
+                <td align="left"><?= $row["species"] ?></td>
+                <td align="right"><?php if ($row["editmoney"] >= 0) { ?>
+                        <font color="green">
+                            <?php echo $row["editmoney"];  ?>
+                        </font>
+                    <?php   } else {   ?>
+                        <font color="red">
+                            <?php echo $row["editmoney"]; ?>
+                        </font>
+                    <?php } ?>
+
+
+                    <a id="moneybtn" href="see_money.php?id= <?= $row["savelistId"] ?>" id="back" class="btn btn-info btn-sm">></a></td>
 
             </tr>
         <?php  } ?>
         <tr bgcolor="#005757">
             <td></td>
             <form id="form1" name="form1" method="post">
-                <td>
+                <td  align="center">
                     <?php if ($maxlist > $num) { ?>
                         <input type="submit" name="btnOK" id="btnOK" value="我想看更多" style="color:#009393" />
+
                     <?php } ?>
+                    <font color="#005757">0</font>
                 </td>
-                <td></td>
+                <td>
+
+                </td>
             </form>
         </tr>
         </div>

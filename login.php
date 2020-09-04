@@ -30,14 +30,15 @@ if (isset($_POST["btnOK"])) {
   $verif = $_POST["Verif"];
 }
 
-//如果按下回首頁
+//如果按下回註冊
 if (isset($_POST["btnLogin"])) {
 
   header("Location: add.php");
   exit();
 }
+if(isset($_POST["btnOK"])){
 // 檢查是否輸入使用者名稱和密碼
-if ($account != "" && $password != "") {
+if ($account != "" && $password != ""){
   // 建立MySQL的資料庫連接 
   require("connDB.php");
   // 建立SQL指令字串
@@ -53,7 +54,7 @@ if ($account != "" && $password != "") {
     $row = mysqli_fetch_assoc($result);
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
-    $_SESSION['user'] =  $row["username"];
+    $_SESSION['account'] =  $row["account"];
     $_SESSION['id'] =  $row["userId"];
     $id = $row["userId"];
     $_SESSION["login_session"] = true;
@@ -71,8 +72,8 @@ if ($account != "" && $password != "") {
     } else {
       $sql = <<<multi
       insert into savelist 
-      (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-      (0,0,0,$id,current_timestamp(),'新帳號')
+      (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
+      (0,0,0,$id,current_timestamp(),'新帳號','新帳號')
     multi;
       $result = mysqli_query($link, $sql);
     }
@@ -82,14 +83,12 @@ if ($account != "" && $password != "") {
     randowverif();
     //如果沒有這個帳密
     if (!$total_records > 0) {
-      echo "<center><font color='red'>";
-      echo "使用者名稱或密碼錯誤!<br/>";
-      echo "</font>";
+
+      echo "<script>alert('使用者名稱或密碼錯誤')</script>";
       //如果驗證碼比對失敗
     } else {
-      echo "<center><font color='red'>";
-      echo "驗證碼錯誤!<br/>";
-      echo "</font>";
+
+      echo "<script>alert('驗證碼錯誤')</script>";
     }
 
     $_SESSION["login_session"] = false;
@@ -99,65 +98,85 @@ if ($account != "" && $password != "") {
   //如果有空白
 } else {
   randowverif();
-
-  echo "<center><font color='red'>";
-  echo "使用者名稱或密碼未輸入!<br/>";
-  echo "</font>";
+  echo "<script>alert('使用者名稱或密碼未輸入')</script>";
 }
-
+} 
 ?>
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Lab - Login</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Lag - Member Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="mycss.css">
 </head>
 
 <body>
-  <form id="form1" name="form1" method="post">
 
-    測試用帳密:<br>
-    admin / 1234 <br>
+  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-    jolin / 1234
-    <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <form id="form1" name="form1" method="post">
+      <tr bgcolor="#005757">
+        <td>
+          <div id="title">
+            <div></div>
+            <font color="#FFFFFF" align="center">登入</font>
+            <div>
 
-      <tr>
-        <td colspan="2" align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 - 登入</font>
+            </div>
+          </div>
         </td>
+
       </tr>
       <tr>
-        <td width="100" align="center" valign="baseline">使用者帳號</td>
-        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+        <td>使用者帳號<br>
+
+          <input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
       </tr>
       <tr>
-        <td width="100" align="center" valign="baseline">使用者密碼</td>
-        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" /></td>
+        <td>使用者密碼<br>
+
+          <input type="password" name="txtPassword" id="txtPassword" /></td>
       </tr>
+
       <tr>
-        <td width="100" align="center" valign="baseline">
+        <td>
           <font size="4">驗證碼:</font>
-          <p><img src="<?php echo "images/" . $_SESSION['verification1 '] . '.png' ?>" />
-            <img src="<?php echo "images/" . $_SESSION['verification2 '] . '.png' ?>" />
-            <img src="<?php echo "images/" . $_SESSION['verification3 '] . '.png' ?>" />
-            <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" /></p>
+          <img src="<?php echo "images/" . $_SESSION['verification1 '] . '.png' ?>" />
+          <img src="<?php echo "images/" . $_SESSION['verification2 '] . '.png' ?>" />
+          <img src="<?php echo "images/" . $_SESSION['verification3 '] . '.png' ?>" />
+          <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" />
+          <input type="text" name="Verif" id="Verif" />
         </td>
-
-        <td><input type="text" name="Verif" />
         </td>
-
       </tr>
+
       <tr>
-        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
-          <input type="reset" name="btnReset" id="btnReset" value="重設" />
+        <td colspan="2" align="center">
+          <hr><input type="submit" name="btnOK" id="btnOK" value="登入" />
           <input type="submit" name="btnLogin" id="btnLogin" value="註冊" />
         </td>
       </tr>
+      <tr bgcolor="#005757">
+        <td>
+          <div>
+            <font color="#005757">123</font>
+          </div>
+        </td>
 
-    </table>
-  </form>
+
+    </form>
+    </tr>
+
+    </div>
+  </table>
+
+
 </body>
 
 </html>

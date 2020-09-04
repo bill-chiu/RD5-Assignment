@@ -1,65 +1,83 @@
 <?php
 
 session_start();
-$userName = "Guest";
-if (isset($_SESSION["user"])) {
-  $userName = $_SESSION["user"];
+
+if(!isset($_SESSION["login_session"])or $_SESSION["login_session"]== false){
+header("Location: login.php");
+
 }
+
+require("connDB.php");
+
+$_SESSION["delete"] = false;
+$_SESSION["end1"] = false;
+$_SESSION["end2"] = false;
+
+if (($_SESSION['num'] > 5)) {
+  $_SESSION['num'] = 5;
+}
+$id = $_SESSION['id'];
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Lab - index</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="mycss.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="mycss.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
-  <form id="form1" name="form1" method="post">
-    <table width="450" border="0" align="center" cellpadding="10" cellspacing="0" bgcolor="#F2F2F2">
-      <tr>
-        <td align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">網銀系統 - 首頁</font>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="" align="center" bgcolor="#F2F2F2">
+    <form id="form1" name="form1" method="post">
+    <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-          <p><a href="admin.php"  class="btn btn-primary   btn-sm">管理資料</a>
-       
-            <?php
-            if ($_SESSION["login_session"] == false) { ?>
-              <a href="login.php" class="btn btn-info   btn-sm">登入帳號</a>
-              <a href="add.php" class="btn btn-warning  btn-sm">註冊帳號</a></a>
-            <?php } else { ?>
+            <tr bgcolor="#005757">
+                <td>
+                    <div id="title">
+                        <div></div>
+                        <font color="#FFFFFF">管理</font>
+                        <div>
+                            
+                        </div>
+                    </div>
+                </td>
 
-             <a href="sign_out.php" class="btn btn-danger   btn-sm">登出帳號</a>
-        <?php } ?>
-      
-  
-        <a href="edit.php?id=<?=$_SESSION['id']?>" class="btn btn-success  btn-sm">修改帳號</a></p>
-    
-        </td>
-      </tr>
-      <tr>
-        <td align="center" bgcolor="#CCCCCC">您好 <?= $userName ?> &nbsp;
-        <?php if($_SESSION["id"]!="-1"){?>
-                    <a>目前帳戶餘額為<?= $_SESSION["moneynow"] ?> </a>
+            </tr>
+            <td> 
+            <div id="ttt">
+            <a href="save.php?id=<?= $id ?>" class="btn btn-info btn-sm">存款</a>
+        <a href="withdrawal.php?id=<?= $id ?>" class="btn btn-info btn-sm">提款</a>
+        <a href="turn_money.php?id=<?= $id?>" class="btn btn-info btn-sm">轉帳</a>
+        </div>  <br>
+        <div id="ttt">
+        <a href="detail.php?id=<?= $id ?>" class="btn btn-info btn-sm">查詢交易紀錄</a>
+        <a href="edit.php?id=<?= $id?>" class="btn btn-info btn-sm">修改帳戶資料</a>
+        <a href="sign_out.php?id=<?= $id?>" class="btn btn-info btn-sm">登出</a></div>  
 
-                    <?php }?></td>
-        
-      </tr>
-    </table>
-  </form>
+      </td>
 
-
+            <tr bgcolor="#005757">
+                <td colspan="2" align="center">
+                   
+                <div>
+                        <font color="#005757">0</font>
+                    </div>
+                </td>
+            </tr>
+        </table>   </h3>  
+    </form>
 </body>
+
 
 </html>

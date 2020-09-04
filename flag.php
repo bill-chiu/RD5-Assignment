@@ -62,7 +62,7 @@ if (isset($_POST["btnExit"])) {
                 <?php if ($_SESSION["delete"] == true) { ?>
 
                     <td> 是否刪除帳號(注意！刪除後將無法取回帳戶內的金錢)
-                        <a href="admin.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">取消</a>
+                        <a href="index.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">取消</a>
                         <a href="delete.php?id=<?= $row["userId"] ?>" class="btn btn-danger btn-sm">刪除</a>
 
                     </td>
@@ -83,7 +83,7 @@ if (isset($_POST["btnExit"])) {
                         <!-- <?php if ($_SESSION["end2"] == true) { ?> -->
 
                         <td> 是否結束交易
-                            <a href="admin.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">繼續交易</a>
+                            <a href="index.php?id=<?= $row["userId"] ?>" class="btn btn-success btn-sm">繼續交易</a>
                             <a href="sign_out.php?id=<?= $id ?>" class="btn btn-danger btn-sm">登出</a>
 
                         </td>

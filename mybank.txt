@@ -28,6 +28,7 @@ CREATE TABLE savelist (
   nowmoney int NOT NULL,
   userId int NOT NULL,
   data varchar(20) NOT NULL,
+  species varchar(20) NOT NULL,
   remarks varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

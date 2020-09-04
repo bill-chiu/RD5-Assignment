@@ -15,8 +15,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
         $sql = <<<multi
     insert into savelist 
-    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-    ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
+    (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
+    ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'提款','$remarks')
   multi;
         $result = mysqli_query($link, $sql);
 
@@ -27,9 +27,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
         header("Location: flag.php");
         exit();
     } else {
-        echo "<center><font color='red'>";
-        echo "餘額不足!<br/>";
-        echo "</font>";
+        echo "<script>alert('餘額不足')</script>";
       
     }
 } else {
@@ -77,9 +75,9 @@ if (isset($_POST["btnHome"])) {
                 <td>
                     <div id="title">
                         <div></div>
-                        <font color="#FFFFFF">提款</font>
+                        <div id="tt" >     <font color="#FFFFFF">提款</font></div>
                         <div>
-                       <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                       <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
                        </div> 
                        </div>
                 </td>

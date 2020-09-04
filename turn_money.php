@@ -4,7 +4,7 @@ session_start();
 require("connDB.php");
 
 $id = $_SESSION['id'];
-
+$account=$_SESSION['account'];
 if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
     $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
@@ -24,6 +24,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
         if ($total_records > 0) {
             $row = mysqli_fetch_assoc($result);
             $otherid = $row["userId"];
+            $otheraccount = $row["account"];
             $sql = "SELECT * FROM `savelist` where userId=$otherid ORDER BY `savelist`.`data` DESC";
             $result = mysqli_query($link, $sql);
             $row = mysqli_fetch_assoc($result);
@@ -32,14 +33,14 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
             $sql = <<<multi
     insert into savelist 
-    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-    ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'$remarks')
+    (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
+    ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'轉帳從$account','$remarks')
   multi;
             $result = mysqli_query($link, $sql);
             $sql = <<<multi
     insert into savelist 
-    (originalmoney,editmoney,nowmoney,userId,data,remarks) values 
-    ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'$remarks')
+    (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
+    ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'轉帳給$otheraccount','$remarks')
   multi;
             $result = mysqli_query($link, $sql);
 
@@ -48,11 +49,13 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
             $_SESSION["end2"]=true;
             header("Location: flag.php");
             exit();
+        }else{
+    
+            echo "<script>alert('查無帳戶')</script>";
+       
         }
     } else {
-        echo "<center><font color='red'>";
-        echo "餘額不足!<br/>";
-        echo "</font>";
+        echo "<script>alert('餘額不足')</script>";
     }
 } else {
 
@@ -94,9 +97,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
                     <td>
                         <div id="title">
                             <div></div>
-                            <font color="#FFFFFF">轉帳</font>
+                            <div id="tt" > <font color="#FFFFFF">轉帳</font>  </div>
                             <div>
-                                <a href="admin.php" id="back" class="btn btn-info btn-sm">返回</a>
+                                <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
                             </div>
                         </div>
                     </td>

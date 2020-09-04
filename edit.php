@@ -5,17 +5,9 @@
 
 session_start();
 
-if ($_SESSION["user"] == "Guest") {
-  header("location:admin.php");
-  exit();
-}
-if (isset($_POST["btnHome"])) {
 
-  header("Location: index.php");
-  exit();
-}
 if (isset($_POST["btnDelete"])) {
-  $_SESSION["delete"]=true;
+  $_SESSION["delete"] = true;
   header("Location: flag.php");
   exit();
 }
@@ -34,7 +26,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != "" && $_POST["txtUserAcc
   $userphone = $_POST["txtUserPhone"];
   $account = $_POST["txtUserAccount"];
   $password = $_POST["txtPassword"];
-  // $identityID = $_POST["txtIdentityID"];
+
 
   $sql = <<<multi
     update bankuser set 
@@ -47,7 +39,7 @@ multi;
   $result = mysqli_query($link, $sql);
   $_SESSION['user'] = $username;
 
-  header("location:admin.php");
+  header("location:index.php");
   exit();
 } else {
 
@@ -82,9 +74,9 @@ multi;
         <td>
           <div id="title">
             <div></div>
-            <font color="#FFFFFF" align="center">清單明細</font>
+            <font color="#FFFFFF" align="center">修改帳號</font>
             <div>
-              <a href="admin.php?id=<?= $row["userId"] ?>" id="back" class="btn btn-info btn-sm">返回</a>
+              <a href="index.php?id=<?= $row["userId"] ?>" id="back" class="btn btn-info btn-sm">返回</a>
             </div>
           </div>
         </td>
@@ -97,31 +89,36 @@ multi;
       </tr>
 
       <tr>
-        <td>使用者電話<br>       
+        <td>使用者電話<br>
 
-     <input type="text" name="txtUserPhone" id="txtUserPhone" value="<?= $row["userphone"] ?>" /></td>
+          <input type="text" name="txtUserPhone" id="txtUserPhone" value="<?= $row["userphone"] ?>" /></td>
       </tr>
 
       <tr>
         <td>使用者帳號<br>
 
-       <input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>" /></td>
+          <input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>" /></td>
       </tr>
       <tr>
         <td>使用者密碼<br>
 
-       <input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
+          <input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
       </tr>
       <tr>
-        <td><input type="submit" name="btnOK" id="btnOK" value="修改" /> 
+        <td>
+          <hr><input type="submit" name="btnOK" id="btnOK" value="修改" />
 
-        <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
+          <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
         </td>
       </tr>
       <tr bgcolor="#005757">
-        <td></td>
+        <td>
+          <div>
+            <font color="#005757">123</font>
+          </div>
+        </td>
 
-    
+
     </form>
     </tr>
 
