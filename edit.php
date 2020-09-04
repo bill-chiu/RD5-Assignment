@@ -95,11 +95,6 @@ multi;
       </tr>
 
       <tr>
-        <td>使用者帳號<br>
-
-          <input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>" /></td>
-      </tr>
-      <tr>
         <td>使用者密碼<br>
 
           <input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
