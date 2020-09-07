@@ -4,7 +4,7 @@ session_start();
 require("connDB.php");
 
 $id = $_SESSION['id'];
-$account=$_SESSION['account'];
+$myaccount=$_SESSION['account'];
 if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
     $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
@@ -34,7 +34,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
             $sql = <<<multi
     insert into savelist 
     (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
-    ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'轉帳從$account','$remarks')
+    ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'轉帳從$myaccount','$remarks')
   multi;
             $result = mysqli_query($link, $sql);
             $sql = <<<multi
