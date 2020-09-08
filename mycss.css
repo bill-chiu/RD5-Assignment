@@ -51,6 +51,10 @@ input[type="password"]{padding:5px 15px; border:2px #ccc solid;
 #tt{
     margin:0 auto;
 }
+#gg{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
 
 #title{
     display: grid;

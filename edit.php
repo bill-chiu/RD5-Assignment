@@ -119,13 +119,22 @@ multi;
         <td>使用者密碼<br>
 
           <input type="password" name="txtNewPassword" required id="txtNewPassword" /></td>
-      <tr>
+ 
+          <tr>
         <td>
+        <!-- <div id="gg" > -->
           <hr><input type="submit" name="btnOK" id="btnOK" value="修改" />
 
+          </form>
+          <form id="form2" name="form2" method="post">
           <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
+
+    </form>    
+  <!-- </div> -->
+ 
         </td>
       </tr>
+  
       <tr bgcolor="#005757">
         <td>
           <div>
@@ -134,7 +143,6 @@ multi;
         </td>
 
 
-    </form>
     </tr>
 
     </div>
