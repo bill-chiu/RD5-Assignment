@@ -8,15 +8,15 @@ CREATE TABLE bankuser (
   userphone int NOT NULL ,
   identityID varchar(10) NOT NULL DEFAULT '',
   account varchar(12) NOT NULL DEFAULT '',
-  password varchar(100) NOT NULL DEFAULT ''
+  password varchar(12) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 INSERT INTO bankuser (username, userphone,identityID,account, password) VALUES
 ('陳會安', 0984513254,'A123456789', 'hueyan', '1234'),
 ('江小魚', 0984444452,'B227654321',  'smallfish', '1234'),
-('周傑倫', 0912345678,'W121478963', 'jay', '$2y$10$..ojYN4gSG7otsvU9qJMd.5kBvrfgrGvEZ2agBPU7mxQioweGXq.K'),
-('蔡依玲', 0998512365,'H123445698',  'jolin', '$2y$10$..ojYN4gSG7otsvU9qJMd.5kBvrfgrGvEZ2agBPU7mxQioweGXq.K'),
+('周傑倫', 0912345678,'W121478963', 'jay', '1234'),
+('蔡依玲', 0998512365,'H123445698',  'jolin', '1234'),
 ('張會妹', 0945215635,'Q125478963',  'chiang', '1234'),
 ('張無忌', 0984513021,'P223654121', 'chiang1234', '1234');
 

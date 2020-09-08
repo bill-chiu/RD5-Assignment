@@ -42,16 +42,16 @@ if ($account != "" && $password != ""){
   // 建立MySQL的資料庫連接 
   require("connDB.php");
   // 建立SQL指令字串
-  $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
+  $sql = "SELECT * FROM bankuser WHERE `password`='$password' AND `account`='$account'";
 
   // 執行SQL查詢
   $result = mysqli_query($link, $sql);
   $total_records = mysqli_num_rows($result);
-  $row = mysqli_fetch_assoc($result);
-  $hash=$row["password"];
-  // 是否有查詢到使用者記錄以及驗證碼是否正確
-  if ($total_records > 0 && $_SESSION['verification '] == $verif && password_verify($password, $hash)) {
 
+  // 是否有查詢到使用者記錄以及驗證碼是否正確
+  if ($total_records > 0 && $_SESSION['verification '] == $verif) {
+
+    $row = mysqli_fetch_assoc($result);
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
     $_SESSION['account'] =  $row["account"];
@@ -81,9 +81,16 @@ if ($account != "" && $password != ""){
     // 登入失敗
   } else {
     randowverif();
-    //如果輸入內容錯誤
-      echo "<script>alert('輸入內容錯誤')</script>";
-    
+    //如果沒有這個帳密
+    if (!$total_records > 0) {
+
+      echo "<script>alert('使用者名稱或密碼錯誤')</script>";
+      //如果驗證碼比對失敗
+    } else {
+
+      echo "<script>alert('驗證碼錯誤')</script>";
+    }
+
     $_SESSION["login_session"] = false;
   }
   // 關閉資料庫連接  

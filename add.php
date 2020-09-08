@@ -9,7 +9,6 @@ if (isset($_POST["btnOK"])) {
     $account = $_POST["txtUserAccount"];
     $password = $_POST["txtPassword"];
     $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
-    $hash = password_hash($password, PASSWORD_DEFAULT);
 
     // 執行SQL查詢
     require("connDB.php");
@@ -26,7 +25,7 @@ if (isset($_POST["btnOK"])) {
 
       $sql = <<<multi
     insert into bankuser (username,userphone,identityID,account,password)
-    values ('$username','$userphone','$identityID','$account','$hash')
+    values ('$username','$userphone','$identityID','$account','$password')
     multi;
       echo $sql;
       require("connDB.php");
