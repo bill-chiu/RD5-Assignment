@@ -21,26 +21,44 @@ if (!is_numeric($id)) {
   die("id is not a number");
 }
 require("connDB.php");
-if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != "" && $_POST["txtUserAccount"] != "" && $_POST["txtPassword"] != "") {
+if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != ""&& $_POST["txtPassword"] != "") {
   $username = $_POST["txtUserName"];
   $userphone = $_POST["txtUserPhone"];
-  $account = $_POST["txtUserAccount"];
   $password = $_POST["txtPassword"];
+  $newpassword = $_POST["txtNewPassword"];
+  $account = $_SESSION['account'];
+  $hash2 = password_hash($newpassword, PASSWORD_DEFAULT);
+  //查詢帳號資料
+  $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
+  // 執行SQL查詢
+  require("connDB.php");
+  $result = mysqli_query($link, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $hash = $row["password"];
+
+  if (password_verify($password, $hash)) {
 
 
-  $sql = <<<multi
+    $sql = <<<multi
     update bankuser set 
     username='$username',
     userphone='$userphone',
     account='$account',
-    password='$password'
+    password='$hash2'
     where bankuser .userId=$id
 multi;
-  $result = mysqli_query($link, $sql);
-  $_SESSION['user'] = $username;
+    $result = mysqli_query($link, $sql);
+    echo "<script>alert('修改成功')</script>";
+    $_SESSION['user'] = $username;
 
-  header("location:index.php");
-  exit();
+    header("location:index.php");
+    exit();
+  } else {
+    echo "<script>alert('密碼錯誤')</script>";
+    $sql = "select * from bankuser where userId =$id";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_assoc($result);
+  }
 } else {
 
   $sql = <<<multi
@@ -95,9 +113,14 @@ multi;
       </tr>
 
       <tr>
-        <td>使用者密碼<br>
+        <td>舊密碼<br>
 
-          <input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>" /></td>
+          <input type="password" name="txtPassword" id="txtPassword" /></td>
+      </tr>
+      <tr>
+        <td>新密碼<br>
+
+          <input type="password" name="txtNewPassword" required id="txtNewPassword" /></td>
       </tr>
       <tr>
         <td>
