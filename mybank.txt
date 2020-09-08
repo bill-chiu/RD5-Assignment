@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 08, 2020 at 07:48 AM
+-- Generation Time: Sep 08, 2020 at 08:53 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
@@ -12,6 +12,7 @@ SET time_zone = "+00:00";
 
 create database mybank;
 use mybank;
+
 --
 -- Database: `mybank`
 --
@@ -41,7 +42,10 @@ INSERT INTO `bankuser` (`userId`, `username`, `userphone`, `identityID`, `accoun
 (3, '周傑倫', 912345678, 'W121478963', 'jay', '$2y$10$9Ge5VrxlHirTnZcRtSMZPOOcSbj3l7vPKHxHOZw0K8cJJM5S53Ciq'),
 (4, '蔡依玲', 998512365, 'H123445698', 'jolin', '$2y$10$rQuyHlG7s.CibJTfkbDKc.BZFllwoeRZb/kFUXCuUkTdz7TqK6d9S'),
 (5, '張會妹', 945215635, 'Q125478963', 'chiang', '1234'),
-(6, '張無忌', 984513021, 'P223654121', 'chiang1234', '1234');
+(6, '張無忌', 984513021, 'P223654121', 'chiang1234', '1234'),
+(7, 'aaa', 998512365, 'h111111111', 'ww', 'www'),
+(8, 'ppp', 998512365, 'h111111111', 'ppp', '$2y$10$klgcixKOxCfqFTt3RyZU4eQBk.3V8Lijk8fqAhkdmaQUqwhuIjbeq'),
+(9, 'sss', 998512365, 'h111111111', 'sss', '$2y$10$4C1Q.adM8AomBePgWr25CuO1Jh7Q2SKTUXRkbxf1a.p7HAfkh.71W');
 
 -- --------------------------------------------------------
 
@@ -87,7 +91,6 @@ INSERT INTO `savelist` (`savelistId`, `originalmoney`, `editmoney`, `nowmoney`, 
 (20, 27000, -10000, 17000, 3, '2020-09-04 14:07:55', '提款', '買衣服'),
 (21, 1093119, 10000, 1103119, 9, '2020-09-04 14:13:32', '轉帳從sss', 'sss'),
 (22, 17000, -10000, 7000, 3, '2020-09-04 14:13:32', '轉帳給sss', 'sss'),
-(23, 0, 0, 0, 10, '2020-09-04 14:50:05', '新帳號', '新帳號'),
 (24, 7000, 1000, 8000, 3, '2020-09-07 15:29:37', '轉帳從jay', '123'),
 (25, 1103119, -1000, 1102119, 9, '2020-09-07 15:29:37', '轉帳給jay', '123'),
 (26, 8000, 1000, 9000, 3, '2020-09-07 15:34:34', '轉帳從jay', 'aaaa'),
@@ -98,7 +101,17 @@ INSERT INTO `savelist` (`savelistId`, `originalmoney`, `editmoney`, `nowmoney`, 
 (31, 8000, -1000, 7000, 3, '2020-09-07 15:36:11', '轉帳給sss', ''),
 (32, 7000, 1000, 8000, 3, '2020-09-07 15:36:39', '轉帳從sss', 'ssss'),
 (33, 1103119, -1000, 1102119, 9, '2020-09-07 15:36:39', '轉帳給jay', 'ssss'),
-(34, 0, 0, 0, 4, '2020-09-08 15:31:08', '新帳號', '新帳號');
+(34, 0, 0, 0, 4, '2020-09-08 15:31:08', '新帳號', '新帳號'),
+(35, 0, 0, 0, 7, '2020-09-08 16:32:54', '新帳號', '新帳號'),
+(36, 0, 10000, 10000, 7, '2020-09-08 16:33:56', '存款', ''),
+(37, 10000, 1000, 11000, 7, '2020-09-08 16:34:20', '存款', ''),
+(38, 11000, 1000, 12000, 7, '2020-09-08 16:34:24', '存款', ''),
+(39, 12000, 1000, 13000, 7, '2020-09-08 16:34:29', '存款', 'aaaa'),
+(40, 13000, 1000, 14000, 7, '2020-09-08 16:34:39', '存款', 'aaaa'),
+(41, 14000, -2100, 11900, 7, '2020-09-08 16:35:11', '提款', ''),
+(42, 0, 0, 0, 8, '2020-09-08 16:47:20', '新帳號', '新帳號'),
+(43, 11900, 1000, 12900, 8, '2020-09-08 16:50:28', '存款', '111'),
+(44, 1102119, -100000, 1002119, 9, '2020-09-08 16:51:21', '提款', '');
 
 --
 -- Indexes for dumped tables
@@ -124,10 +137,10 @@ ALTER TABLE `savelist`
 -- AUTO_INCREMENT for table `bankuser`
 --
 ALTER TABLE `bankuser`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `savelist`
 --
 ALTER TABLE `savelist`
-  MODIFY `savelistId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `savelistId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
