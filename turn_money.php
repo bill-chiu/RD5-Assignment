@@ -107,7 +107,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
                 </tr>
                 <tr>
                     <td align="left" style="color:#009393">轉出金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
-                        <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
+                        <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" onkeyup="value=value.replace(/[^\d]/g,'') " required />
                         <hr>
 
 
@@ -119,7 +119,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
                 <tr>
 
                     <td align="left" style="color:#009393">轉入對象<br>
-                        <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" />
+                        <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" onkeyup="value=value.replace(/[\W]/g,'') " required/>
                         <hr>
                     </td>
 

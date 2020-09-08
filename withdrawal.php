@@ -85,7 +85,7 @@ if (isset($_POST["btnHome"])) {
             </tr>
             <tr>
                 <td align="left" style="color:#009393">提款金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
-                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" />
+                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" onkeyup="value=value.replace(/[^\d]/g,'') " required />
                     <hr>
 
 

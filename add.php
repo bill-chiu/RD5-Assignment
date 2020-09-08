@@ -9,7 +9,7 @@ if (isset($_POST["btnOK"])) {
     $account = $_POST["txtUserAccount"];
     $password = $_POST["txtPassword"];
     $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
-
+    $hash = password_hash($password, PASSWORD_DEFAULT);
     // 執行SQL查詢
     require("connDB.php");
     $result = mysqli_query($link, $sql);
@@ -25,7 +25,7 @@ if (isset($_POST["btnOK"])) {
 
       $sql = <<<multi
     insert into bankuser (username,userphone,identityID,account,password)
-    values ('$username','$userphone','$identityID','$account','$password')
+    values ('$username','$userphone','$identityID','$account','$hash')
     multi;
       echo $sql;
       require("connDB.php");
@@ -81,28 +81,28 @@ if (isset($_POST["btnLogin"])) {
       <tr>
         <td>使用者名稱<br>
 
-          <input type="text" name="txtUserName" id="txtUserName"></td>
+          <input type="text" name="txtUserName" id="txtUserName" required ></td>
       </tr>
 
       <td>身分證字號<br>
 
-        <input type="text" name="txtIdentityID" id="txtIdentityID" /></td>
+        <input type="text" name="txtIdentityID" id="txtIdentityID" onkeyup="value=value.replace(/[\W]/g,'') " required /></td>
       </tr>
       <tr>
         <td>使用者電話<br>
 
-          <input type="text" name="txtUserPhone" id="txtUserPhone" /></td>
+          <input type="text" name="txtUserPhone" id="txtUserPhone" onkeyup="value=value.replace(/[^\d]/g,'') " required/></td>
       </tr>
 
       <tr>
         <td>使用者帳號<br>
 
-          <input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+          <input type="text" name="txtUserAccount" id="txtUserAccount" onkeyup="value=value.replace(/[\W]/g,'') " required /></td>
       </tr>
       <tr>
         <td>使用者密碼<br>
 
-          <input type="password" name="txtPassword" id="txtPassword" /></td>
+          <input type="password" name="txtPassword" id="txtPassword" onkeyup="value=value.replace(/[\W]/g,'') " required /></td>
       </tr>
       <tr>
 
@@ -111,8 +111,8 @@ if (isset($_POST["btnLogin"])) {
           <hr>
 
           <input type="submit" name="btnOK" id="btnOK" value="新增" />
-   
-          <input type="submit" name="btnLogin" id="btnLogin" value="我已經有帳號" />
+          <a id="aurl" href="login.php " class="btn">我已經有帳號</a>
+
 
      
       

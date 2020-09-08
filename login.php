@@ -42,16 +42,17 @@ if ($account != "" && $password != ""){
   // 建立MySQL的資料庫連接 
   require("connDB.php");
   // 建立SQL指令字串
-  $sql = "SELECT * FROM bankuser WHERE `password`='$password' AND `account`='$account'";
+  $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
 
   // 執行SQL查詢
   $result = mysqli_query($link, $sql);
   $total_records = mysqli_num_rows($result);
-
+  $row = mysqli_fetch_assoc($result);
+  $hash=$row["password"];
   // 是否有查詢到使用者記錄以及驗證碼是否正確
-  if ($total_records > 0 && $_SESSION['verification '] == $verif) {
+  if ($total_records > 0 && $_SESSION['verification '] == $verif && password_verify($password, $hash)) {
 
-    $row = mysqli_fetch_assoc($result);
+
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
     $_SESSION['account'] =  $row["account"];
@@ -81,15 +82,8 @@ if ($account != "" && $password != ""){
     // 登入失敗
   } else {
     randowverif();
-    //如果沒有這個帳密
-    if (!$total_records > 0) {
-
-      echo "<script>alert('使用者名稱或密碼錯誤')</script>";
-      //如果驗證碼比對失敗
-    } else {
-
-      echo "<script>alert('驗證碼錯誤')</script>";
-    }
+    //如果輸入內容錯誤
+    echo "<script>alert('輸入內容錯誤')</script>";
 
     $_SESSION["login_session"] = false;
   }
@@ -136,12 +130,12 @@ if ($account != "" && $password != ""){
       <tr>
         <td>使用者帳號<br>
 
-          <input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+          <input type="text" name="txtUserAccount" id="txtUserAccount" onkeyup="value=value.replace(/[\W]/g,'') " required /></td>
       </tr>
       <tr>
         <td>使用者密碼<br>
 
-          <input type="password" name="txtPassword" id="txtPassword" /></td>
+          <input type="password" name="txtPassword" id="txtPassword" onkeyup="value=value.replace(/[\W]/g,'') " required /></td>
       </tr>
 
       <tr>
@@ -151,7 +145,7 @@ if ($account != "" && $password != ""){
           <img src="<?php echo "images/" . $_SESSION['verification2 '] . '.png' ?>" />
           <img src="<?php echo "images/" . $_SESSION['verification3 '] . '.png' ?>" />
           <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" />
-          <input type="text" name="Verif" id="Verif" />
+          <input type="text" name="Verif" id="Verif" onkeyup="value=value.replace(/[^\d]/g,'') " required />
         </td>
         </td>
       </tr>
@@ -159,7 +153,7 @@ if ($account != "" && $password != ""){
       <tr>
         <td colspan="2" align="center">
           <hr><input type="submit" name="btnOK" id="btnOK" value="登入" />
-          <input type="submit" name="btnLogin" id="btnLogin" value="註冊" />
+          <a id="aurl" href="add.php " class="btn">註冊</a>
         </td>
       </tr>
       <tr bgcolor="#005757">

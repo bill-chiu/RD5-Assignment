@@ -18,6 +18,15 @@ input[type="submit"]{padding:5px 15px; border:2px #009393 solid;
     -webkit-border-radius: 5px;
     border-radius: 50px; 
 }
+#aurl{
+    
+    padding:5px 15px; border:2px #009393 solid;
+    cursor:pointer;
+    width:150px;
+    -webkit-border-radius: 5px;
+    border-radius: 50px; 
+}
+
 input[type="reset"]{padding:5px 15px; border:2px #009393 solid;
     cursor:pointer;
     width:150px;
