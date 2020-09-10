@@ -1,15 +1,14 @@
 <?php
 
 session_start();
-require("connDB.php");
+require("PDOconnDB.php");
 $see = true;
 $id = $_GET["id"];
 $sql = <<<multi
 select * from savelist where savelistId =$id
 multi;
-$result = mysqli_query($link, $sql);
-$row = mysqli_fetch_assoc($result);
-
+$result = $link->query($sql);
+$row = $result->fetch();
 ?>
 
 <script>
@@ -124,7 +123,7 @@ $row = mysqli_fetch_assoc($result);
                             ?>
 
                         </div>
-                        </div>
+                    </div>
                 </td>
             </tr>
             <tr id="greenline">
@@ -136,7 +135,7 @@ $row = mysqli_fetch_assoc($result);
 
                         <div>
                         </div>
-                        <div align="right"> 
+                        <div align="right">
                             <?php echo $row["species"]; ?>
                         </div>
                     </div>

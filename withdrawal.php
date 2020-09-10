@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require("connDB.php");
+require("PDOconnDB.php");
 
 $id = $_SESSION['id'];
 
@@ -18,8 +18,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
     ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'提款','$remarks')
   multi;
-        $result = mysqli_query($link, $sql);
 
+        $result = $link->query($sql);
 
         $_SESSION['moneynow'] = $afteraddmoney;
         $_SESSION["end1"]=true;
@@ -35,8 +35,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $sql = <<<multi
       select * from bankuser where userId =$id
   multi;
-    $result = mysqli_query($link, $sql);
-    $row = mysqli_fetch_assoc($result);
+  $result = $link->query($sql);
+  $row=$result->fetch();  
 }
 
 

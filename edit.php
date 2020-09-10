@@ -4,7 +4,7 @@
 
 
 session_start();
-
+require("PDOconnDB.php");
 
 if (isset($_POST["btnDelete"])) {
   $_SESSION["delete"] = true;
@@ -20,7 +20,7 @@ $id = $_GET["id"];
 if (!is_numeric($id)) {
   die("id is not a number");
 }
-require("connDB.php");
+
 if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != ""  && $_POST["txtPassword"] != "") {
   $username = $_POST["txtUserName"];
   $userphone = $_POST["txtUserPhone"];
@@ -31,9 +31,10 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != ""  && $_POST["txtPasswo
   //查詢帳號資料
   $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
   // 執行SQL查詢
-  require("connDB.php");
-  $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
+
+
+  $result = $link->query($sql);
+  $row = $result->fetch();
   $hash = $row["password"];
 
   if (password_verify($password, $hash)) {
@@ -46,7 +47,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != ""  && $_POST["txtPasswo
     password='$hash2'
     where bankuser .userId=$id
 multi;
-    $result = mysqli_query($link, $sql);
+
+    $result = $link->query($sql);
     echo "<script>alert('更改成功')</script>";
     $_SESSION['user'] = $username;
 
@@ -55,16 +57,18 @@ multi;
   } else {
     echo "<script>alert('密碼錯誤')</script>";
     $sql = "select * from bankuser where userId =$id";
-    $result = mysqli_query($link, $sql);
-    $row = mysqli_fetch_assoc($result);
+
+    $result = $link->query($sql);
+    $row = $result->fetch();
   }
 } else {
 
   $sql = <<<multi
     select * from bankuser where userId =$id
 multi;
-  $result = mysqli_query($link, $sql);
-  $row = mysqli_fetch_assoc($result);
+
+  $result = $link->query($sql);
+  $row = $result->fetch();
 }
 
 ?>
@@ -113,34 +117,34 @@ multi;
 
       <td>舊密碼<br>
 
-          <input type="password" name="txtPassword" id="txtPassword" /></td>
+        <input type="password" name="txtPassword" id="txtPassword" /></td>
       </tr>
       <tr>
         <td>使用者密碼<br>
 
           <input type="password" name="txtNewPassword" required id="txtNewPassword" /></td>
- 
-          <tr>
+
+      <tr>
         <td>
-        <!-- <div id="gg" > -->
+          <!-- <div id="gg" > -->
           <hr><input type="submit" name="btnOK" id="btnOK" value="修改" />
 
-          </form>
-          <form id="form2" name="form2" method="post">
-          <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
+    </form>
+    <form id="form2" name="form2" method="post">
+      <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
 
-    </form>    
-  <!-- </div> -->
- 
-        </td>
-      </tr>
-  
-      <tr bgcolor="#005757">
-        <td>
-          <div>
-            <font color="#005757">123</font>
-          </div>
-        </td>
+    </form>
+    <!-- </div> -->
+
+    </td>
+    </tr>
+
+    <tr bgcolor="#005757">
+      <td>
+        <div>
+          <font color="#005757">123</font>
+        </div>
+      </td>
 
 
     </tr>

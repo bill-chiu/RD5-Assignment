@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require("connDB.php");
+require("PDOconnDB.php");
 
 $id = $_SESSION['id'];
 
@@ -18,17 +18,12 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
 
 
   multi;
-    $result = mysqli_query($link, $sql);
+    $result = $link->query($sql);
 
-    //     $sql = <<<multi
-    //       update bankuser set 
-    //       money='$afteraddmoney'    
-    //       where bankuser .userId=$id
-    //   multi;
+
     $_SESSION['moneynow'] = $afteraddmoney;
-    //     $result = mysqli_query($link, $sql);
-    $_SESSION["end1"]=true;
-    $_SESSION["end2"]=true;
+    $_SESSION["end1"] = true;
+    $_SESSION["end2"] = true;
     header("Location: flag.php");
     exit();
 } else {
@@ -36,15 +31,12 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $sql = <<<multi
       select * from bankuser where userId =$id
   multi;
-    $result = mysqli_query($link, $sql);
-    $row = mysqli_fetch_assoc($result);
+
+    $result = $link->query($sql);
+    $row = $result->fetch();
 }
 
-
-
-
 if (isset($_POST["btnHome"])) {
-
     header("Location: index.php");
     exit();
 }
@@ -72,45 +64,48 @@ if (isset($_POST["btnHome"])) {
 
 <body>
     <form id="form1" name="form1" method="post">
-    <h6>  <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+        <h6>
+            <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-            <tr bgcolor="#005757">
-                <td>
-                    <div id="title">
-                        <div></div>
-                        <div>  <font color="#FFFFFF">存款</font></div>
-                        <div>
-                            <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
+                <tr bgcolor="#005757">
+                    <td>
+                        <div id="title">
+                            <div></div>
+                            <div>
+                                <font color="#FFFFFF">存款</font>
+                            </div>
+                            <div>
+                                <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-            </tr>  
-            <tr>
-                <td align="left" style="color:#009393">存款金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
-                    <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" onkeyup="value=value.replace(/[^\d]/g,'') " required/>
-                    <hr>
-
-
-                </td>
-            </tr>
-            <tr align="center">
-
-            </tr>
-
-            <tr>
-                <td align="left" style="color:#009393">存款說明(非必填)<br>
-                    <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在交易明細" /></td>
-            </tr>
-
-            <tr bgcolor="#005757">
-                <td colspan="2" align="center">
-                    <input type="submit" name="btnOK" id="btnOK" value="立刻存款" style="color:#009393" />
+                </tr>
+                <tr>
+                    <td align="left" style="color:#009393">存款金額(存款帳戶尚餘$<?= $_SESSION["moneynow"] ?>)
+                        <input type="text" name="txtMoney" id="txtMoney" placeholder="輸入金額" onkeyup="value=value.replace(/[^\d]/g,'') " required />
+                        <hr>
 
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                <tr align="center">
+
+                </tr>
+
+                <tr>
+                    <td align="left" style="color:#009393">存款說明(非必填)<br>
+                        <input type="text" name="txtRemarks" id="txtRemarks" placeholder="將顯示在交易明細" /></td>
+                </tr>
+
+                <tr bgcolor="#005757">
+                    <td colspan="2" align="center">
+                        <input type="submit" name="btnOK" id="btnOK" value="立刻存款" style="color:#009393" />
+
+
+                    </td>
+                </tr>
+            </table>
     </form>
 </body>
 

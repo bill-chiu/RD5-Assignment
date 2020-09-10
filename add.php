@@ -11,9 +11,10 @@ if (isset($_POST["btnOK"])) {
     $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
     $hash = password_hash($password, PASSWORD_DEFAULT);
     // 執行SQL查詢
-    require("connDB.php");
-    $result = mysqli_query($link, $sql);
-    $total_records = mysqli_num_rows($result);
+    require("PDOconnDB.php");
+    $select = $link->prepare($sql);
+    $select->execute();
+    $total_records = $select->rowCount();
 
 
     // 是否有查詢到有相同帳號
@@ -28,9 +29,9 @@ if (isset($_POST["btnOK"])) {
     values ('$username','$userphone','$identityID','$account','$hash')
     multi;
       echo $sql;
-      require("connDB.php");
-      mysqli_query($link, $sql);
-    
+      require("PDOconnDB.php");
+      $link->exec($sql);
+
       header("location:index.php");
     }
   } else {
@@ -81,7 +82,7 @@ if (isset($_POST["btnLogin"])) {
       <tr>
         <td>使用者名稱<br>
 
-          <input type="text" name="txtUserName" id="txtUserName" required ></td>
+          <input type="text" name="txtUserName" id="txtUserName" required></td>
       </tr>
 
       <td>身分證字號<br>
@@ -91,7 +92,7 @@ if (isset($_POST["btnLogin"])) {
       <tr>
         <td>使用者電話<br>
 
-          <input type="text" name="txtUserPhone" id="txtUserPhone" onkeyup="value=value.replace(/[^\d]/g,'') " required/></td>
+          <input type="text" name="txtUserPhone" id="txtUserPhone" onkeyup="value=value.replace(/[^\d]/g,'') " required /></td>
       </tr>
 
       <tr>
@@ -107,15 +108,15 @@ if (isset($_POST["btnLogin"])) {
       <tr>
 
         <td colspan="2" align="center">
-          
+
           <hr>
 
           <input type="submit" name="btnOK" id="btnOK" value="新增" />
           <a id="aurl" href="login.php " class="btn">我已經有帳號</a>
 
 
-     
-      
+
+
         </td>
       </tr>
       <tr bgcolor="#005757">

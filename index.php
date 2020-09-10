@@ -2,9 +2,8 @@
 
 session_start();
 
-if(!isset($_SESSION["login_session"])or $_SESSION["login_session"]== false){
-header("Location: login.php");
-
+if (!isset($_SESSION["login_session"]) or $_SESSION["login_session"] == false) {
+    header("Location: login.php");
 }
 
 require("connDB.php");
@@ -12,9 +11,11 @@ require("connDB.php");
 $_SESSION["delete"] = false;
 $_SESSION["end1"] = false;
 $_SESSION["end2"] = false;
-
+if (!isset($_SESSION['num'])) {
+    $_SESSION['num'] = 5;
+}
 if (($_SESSION['num'] > 5)) {
-  $_SESSION['num'] = 5;
+    $_SESSION['num'] = 5;
 }
 $id = $_SESSION['id'];
 
@@ -40,7 +41,7 @@ $id = $_SESSION['id'];
 
 <body>
     <form id="form1" name="form1" method="post">
-    <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+        <table width="400" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
             <tr bgcolor="#005757">
                 <td>
@@ -48,34 +49,35 @@ $id = $_SESSION['id'];
                         <div></div>
                         <font color="#FFFFFF">管理</font>
                         <div>
-                            
+
                         </div>
                     </div>
                 </td>
 
             </tr>
-            <td> 
-            <div id="ttt">
-            <a href="save.php?id=<?= $id ?>" class="btn btn-info btn-sm">存款</a>
-        <a href="withdrawal.php?id=<?= $id ?>" class="btn btn-info btn-sm">提款</a>
-        <a href="turn_money.php?id=<?= $id?>" class="btn btn-info btn-sm">轉帳</a>
-        </div>  <br>
-        <div id="ttt">
-        <a href="detail.php?id=<?= $id ?>" class="btn btn-info btn-sm">查詢交易紀錄</a>
-        <a href="edit.php?id=<?= $id?>" class="btn btn-info btn-sm">修改帳戶資料</a>
-        <a href="sign_out.php?id=<?= $id?>" class="btn btn-info btn-sm">登出</a></div>  
+            <td>
+                <div id="ttt">
+                    <a href="save.php?id=<?= $id ?>" class="btn btn-info btn-sm">存款</a>
+                    <a href="withdrawal.php?id=<?= $id ?>" class="btn btn-info btn-sm">提款</a>
+                    <a href="turn_money.php?id=<?= $id ?>" class="btn btn-info btn-sm">轉帳</a>
+                </div> <br>
+                <div id="ttt">
+                    <a href="detail.php?id=<?= $id ?>" class="btn btn-info btn-sm">查詢交易紀錄</a>
+                    <a href="edit.php?id=<?= $id ?>" class="btn btn-info btn-sm">修改帳戶資料</a>
+                    <a href="sign_out.php?id=<?= $id ?>" class="btn btn-info btn-sm">登出</a></div>
 
-      </td>
+            </td>
 
             <tr bgcolor="#005757">
                 <td colspan="2" align="center">
-                   
-                <div>
+
+                    <div>
                         <font color="#005757">0</font>
                     </div>
                 </td>
             </tr>
-        </table>   </h3>  
+        </table>
+        </h3>
     </form>
 </body>
 

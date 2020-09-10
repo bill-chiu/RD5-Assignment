@@ -1,14 +1,14 @@
 <?php
 
 session_start();
-require("connDB.php");
+require("PDOconnDB.php");
 $id = $_SESSION['id'];
 $sql = <<<multi
 select * from savelist where userId =$id ORDER BY `savelist`.`data` DESC
 
 multi;
-$result = mysqli_query($link, $sql);
-$row = mysqli_fetch_assoc($result);
+$result = $link->query($sql);
+$row = $result->fetch();
 $listid = $row["savelistId"];
 
 if (isset($_POST["btnExit"])) {

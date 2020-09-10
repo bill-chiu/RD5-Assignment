@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require("connDB.php");
+require("PDOconnDB.php");
 $id = $_SESSION['id'];
 
 if (empty($_SESSION['num'])) {
@@ -15,13 +15,13 @@ if (isset($_POST["btnOK"])) {
     $sql = <<<multi
     select * from savelist where userId =$id  ORDER BY `savelist`.`data` DESC limit $num
     multi;
-    $result = mysqli_query($link, $sql);
+    $result = $link->query($sql);
 } else {
     $num = $_SESSION['num'];
     $sql = <<<multi
 select * from savelist where userId =$id  ORDER BY `savelist`.`data` DESC limit $num
 multi;
-    $result = mysqli_query($link, $sql);
+    $result = $link->query($sql);
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -59,7 +59,7 @@ multi;
 
         </tr>
 
-        <?php $row = mysqli_fetch_assoc($result)  ?>
+        <?php $row = $result->fetch();    ?>
         <tr bgcolor="#F2F2F2" id="greenline">
             <?php $maxlist = $row["savelistId"]; ?>
 
@@ -78,7 +78,7 @@ multi;
 
         </tr>
 
-        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+        <?php while ($row = $result->fetch()) { ?>
             <tr id="greenline">
                 <?php $maxlist = $row["savelistId"]; ?>
                 <td><?= substr($row["data"], 5, 5) ?></td>
@@ -101,7 +101,7 @@ multi;
         <tr bgcolor="#005757">
             <td></td>
             <form id="form1" name="form1" method="post">
-                <td  align="center">
+                <td align="center">
                     <?php if ($maxlist > $num) { ?>
                         <input type="submit" name="btnOK" id="btnOK" value="我想看更多" style="color:#009393" />
 

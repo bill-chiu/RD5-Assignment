@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-require("connDB.php");
+require("PDOconnDB.php");
 
 $id = $_SESSION['id'];
-$myaccount=$_SESSION['account'];
+$myaccount = $_SESSION['account'];
 if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $addmoney = $_POST["txtMoney"];
     $afteraddmoney = $_SESSION['moneynow'] - $addmoney;
@@ -17,17 +17,19 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
         $sql = "SELECT * FROM bankuser WHERE `account`='$account'";
 
         // 執行SQL查詢
-        $result = mysqli_query($link, $sql);
-        $total_records = mysqli_num_rows($result);
+        $select = $link->prepare($sql);
+        $select->execute();
+        $total_records = $select->rowCount();
+        $result = $link->query($sql);
 
         // 是否有查詢到使用者記錄以及驗證碼是否正確
         if ($total_records > 0) {
-            $row = mysqli_fetch_assoc($result);
+            $row = $result->fetch();
             $otherid = $row["userId"];
             $otheraccount = $row["account"];
             $sql = "SELECT * FROM `savelist` where userId=$otherid ORDER BY `savelist`.`data` DESC";
-            $result = mysqli_query($link, $sql);
-            $row = mysqli_fetch_assoc($result);
+            $result = $link->query($sql);
+            $row = $result->fetch();
             $othermoneynow = $row["nowmoney"];
             $otherafteraddmoney = $othermoneynow + $addmoney;
 
@@ -36,23 +38,22 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
     ($othermoneynow,$addmoney,$otherafteraddmoney,$otherid,current_timestamp(),'轉帳從$myaccount','$remarks')
   multi;
-            $result = mysqli_query($link, $sql);
+            $result = $link->query($sql);
             $sql = <<<multi
     insert into savelist 
     (originalmoney,editmoney,nowmoney,userId,data,species,remarks) values 
     ($moneynow,-$addmoney,$afteraddmoney,$id,current_timestamp(),'轉帳給$otheraccount','$remarks')
   multi;
-            $result = mysqli_query($link, $sql);
+            $result = $link->query($sql);
 
             $_SESSION['moneynow'] = $afteraddmoney;
-            $_SESSION["end1"]=true;
-            $_SESSION["end2"]=true;
+            $_SESSION["end1"] = true;
+            $_SESSION["end2"] = true;
             header("Location: flag.php");
             exit();
-        }else{
-    
+        } else {
+
             echo "<script>alert('查無帳戶')</script>";
-       
         }
     } else {
         echo "<script>alert('餘額不足')</script>";
@@ -62,8 +63,8 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
     $sql = <<<multi
       select * from bankuser where userId =$id
   multi;
-    $result = mysqli_query($link, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $result = $link->query($sql);
+    $row = $result->fetch();
 }
 
 
@@ -97,7 +98,9 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
                     <td>
                         <div id="title">
                             <div></div>
-                            <div id="tt" > <font color="#FFFFFF">轉帳</font>  </div>
+                            <div id="tt">
+                                <font color="#FFFFFF">轉帳</font>
+                            </div>
                             <div>
                                 <a href="index.php" id="back" class="btn btn-info btn-sm">返回</a>
                             </div>
@@ -119,7 +122,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtMoney"] != "") {
                 <tr>
 
                     <td align="left" style="color:#009393">轉入對象<br>
-                        <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" onkeyup="value=value.replace(/[\W]/g,'') " required/>
+                        <input align="center" type="text" name="txtAccount" id="txtAccount" placeholder="輸入對方帳號" onkeyup="value=value.replace(/[\W]/g,'') " required />
                         <hr>
                     </td>
 

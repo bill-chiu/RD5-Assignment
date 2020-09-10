@@ -6,8 +6,8 @@ $sql = <<<multi
     delete from bankuser where userId =$id
 multi;
 
-require("connDB.php");
-mysqli_query($link, $sql);
+require("PDOconnDB.php");
+$link->exec($sql);
 }
 require("sign_out.php");
 
