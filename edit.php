@@ -33,8 +33,7 @@ if (isset($_POST["btnOK"]) && $_POST["txtUserPhone"] != ""  && $_POST["txtPasswo
   // 執行SQL查詢
 
 
-  $result = $link->query($sql);
-  $row = $result->fetch();
+  $row=$link->query($sql)->fetch();
   $hash = $row["password"];
 
   if (password_verify($password, $hash)) {
@@ -58,17 +57,16 @@ multi;
     echo "<script>alert('密碼錯誤')</script>";
     $sql = "select * from bankuser where userId =$id";
 
-    $result = $link->query($sql);
-    $row = $result->fetch();
+    $row=$link->query($sql)->fetch();
   }
 } else {
 
   $sql = <<<multi
     select * from bankuser where userId =$id
 multi;
-
-  $result = $link->query($sql);
-  $row = $result->fetch();
+$row=$link->query($sql)->fetch();
+  // $result = $link->query($sql);
+  // $row = $result->fetch();
 }
 
 ?>
